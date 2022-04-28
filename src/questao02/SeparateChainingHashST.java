@@ -1,10 +1,5 @@
 package questao02;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-
 public class SeparateChainingHashST<Key, Value> {
     private static final int INIT_CAPACITY = 97;
 
@@ -38,17 +33,11 @@ public class SeparateChainingHashST<Key, Value> {
         this.st = temp.st;
     }*/
 
-    // hash function for keys - returns value between 0 and m-1
-    private int hashTextbook(Key key) {
-        return (key.hashCode() & 0x7fffffff) % m;
-    }
-
-    // hash function for keys - returns value between 0 and m-1 (assumes m is a power of 2)
-    // (from Java 7 implementation, protects against poor quality hashCode() implementations)
     private int hash(Key key) {
     	int h = 0;
-    	for (int i = 0; i < ((String) key).length(); i++)
-    	h = (37 * h + ((String) key).charAt(i)) % m;
+    	for (int i = 0; i < ((String) key).length(); i++){
+    		h = (41 * h + ((String) key).charAt(i)) % m;
+    	}
         return h;
     }
 
@@ -107,7 +96,7 @@ public class SeparateChainingHashST<Key, Value> {
         return queue;
     } 
 
-    public static void main(String[] args) throws IOException { 
+    public static void main(String[] args){ 
         SeparateChainingHashST<String, Integer> st = new SeparateChainingHashST<String, Integer>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
@@ -130,7 +119,7 @@ public class SeparateChainingHashST<Key, Value> {
 
         // print keys
         for (int i = 0; i < st.m; i++){
-        	StdOut.println(i + " " + st.st[i].size()); 
+        	StdOut.println((i+1) + " " + st.st[i].size()); 
         }
         
     }

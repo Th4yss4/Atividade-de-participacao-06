@@ -1,7 +1,7 @@
-package questao01;
+package questao03;
 
 public class SeparateChainingHashST<Key, Value> {
-    private static final int INIT_CAPACITY = 100;
+    private static final int INIT_CAPACITY = 16;
 
     private int n;                                // number of key-value pairs
     private int m;                                // hash table size
@@ -32,9 +32,13 @@ public class SeparateChainingHashST<Key, Value> {
         this.n  = temp.n;
         this.st = temp.st;
     }*/
-
+    
     private int hash(Key key) {
-    	return (key.hashCode() & 0x7fffffff) % m;
+    	int h = 0;
+    	for (int i = 0; i < ((String) key).length(); i++){
+    		h = (31 * h + ((String) key).charAt(i)) % m;
+    	}
+        return h;
     }
 
     public int size() {
@@ -116,6 +120,8 @@ public class SeparateChainingHashST<Key, Value> {
         // print keys
         for (int i = 0; i < st.m; i++){
         	StdOut.println((i+1) + " " + st.st[i].size()); 
-        }   
+        }
+        
     }
+
 }
